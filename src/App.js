@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 const api = {
-  key: "dfa6938a33cd0707cbf42005968a7dac",
+  key: "3ae1832469a7559d07a5dc2d5c2429a9",
   base: "https://api.openweathermap.org/data/2.5/",
 };
 function App() {
@@ -51,7 +51,15 @@ function App() {
     return `${day} ${date} ${month} ${year}`;
   };
   return (
-    <div className="app">
+    <div
+      className={
+        typeof weather.main != "undefined"
+          ? weather.main.temp > 16
+            ? "app warm"
+            : "app"
+          : "app"
+      }
+    >
       <main>
         <div className="search-box">
           <input
@@ -73,8 +81,8 @@ function App() {
               <div className="date">{dateBuilder(new Date())}</div>
             </div>
             <div className="weather-box">
-              <div className="temp">15°C</div>
-              <div className="weather">Cloudy</div>
+              <div className="temp">{Math.round(weather.main.temp)}°C</div>
+              <div className="weather">{weather.weather[0].main}</div>
             </div>
           </div>
         ) : (
